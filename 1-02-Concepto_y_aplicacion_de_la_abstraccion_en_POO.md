@@ -153,6 +153,25 @@ classDiagram
     Transaccion --> MetodoPago
 ```
 
+###Diagrama de secuencias
+```mermaid
+sequenceDiagram
+    participant Cliente
+    participant Transaccion
+    participant MetodoPago
+    participant TarjetaCredito
+    participant PayPal
+    
+    Cliente->>Transaccion: Inicia transacción(monto)
+    Transaccion->>MetodoPago: Ejecuta pago(monto)
+    MetodoPago->>TarjetaCredito: Verificar fondos(monto)
+    TarjetaCredito->>MetodoPago: Responde verificación de fondos(true)
+    MetodoPago->>TarjetaCredito: Procesar pago(monto)
+    TarjetaCredito->>MetodoPago: Responde pago procesado(true)
+    MetodoPago->>Transaccion: Responde pago procesado(true)
+    Transaccion->>Cliente: Responde pago exitoso
+```
+
 ### 2.3 Pruebas Unitarias
 
 ```python
