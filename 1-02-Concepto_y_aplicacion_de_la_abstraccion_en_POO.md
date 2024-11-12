@@ -121,6 +121,7 @@ class Transaccion:
 ```
 
 ### Diagrama de Clases
+
 ```mermaid
 classDiagram
     class MetodoPago {
@@ -154,6 +155,7 @@ classDiagram
 ```
 
 ###Diagrama de secuencias
+
 ```mermaid
 sequenceDiagram
     participant Cliente
@@ -162,12 +164,23 @@ sequenceDiagram
     participant TarjetaCredito
     participant PayPal
     
+    %% Caso con Tarjeta de Crédito
     Cliente->>Transaccion: Inicia transacción(monto)
     Transaccion->>MetodoPago: Ejecuta pago(monto)
     MetodoPago->>TarjetaCredito: Verificar fondos(monto)
     TarjetaCredito->>MetodoPago: Responde verificación de fondos(true)
     MetodoPago->>TarjetaCredito: Procesar pago(monto)
     TarjetaCredito->>MetodoPago: Responde pago procesado(true)
+    MetodoPago->>Transaccion: Responde pago procesado(true)
+    Transaccion->>Cliente: Responde pago exitoso
+    
+    %% Caso con PayPal
+    Cliente->>Transaccion: Inicia transacción(monto)
+    Transaccion->>MetodoPago: Ejecuta pago(monto)
+    MetodoPago->>PayPal: Verificar fondos(monto)
+    PayPal->>MetodoPago: Responde verificación de fondos(true)
+    MetodoPago->>PayPal: Procesar pago(monto)
+    PayPal->>MetodoPago: Responde pago procesado(true)
     MetodoPago->>Transaccion: Responde pago procesado(true)
     Transaccion->>Cliente: Responde pago exitoso
 ```
