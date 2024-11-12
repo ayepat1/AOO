@@ -121,6 +121,7 @@ class Transaccion:
 ```
 
 ### Diagrama de Clases
+```mermaid
 classDiagram
     class MetodoPago {
         <<interface>>
@@ -150,6 +151,7 @@ classDiagram
     MetodoPago <|-- TarjetaCredito
     MetodoPago <|-- PayPal
     Transaccion --> MetodoPago
+```
 
 ### 2.3 Pruebas Unitarias
 
