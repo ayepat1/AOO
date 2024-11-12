@@ -120,6 +120,37 @@ class Transaccion:
         return self.metodo_pago.procesar_pago(monto)
 ```
 
+### Diagrama de Clases
+classDiagram
+    class MetodoPago {
+        <<interface>>
+        +procesar_pago(monto: float) bool
+        +verificar_fondos(monto: float) bool
+    }
+    
+    class TarjetaCredito {
+        -numero: str
+        -fecha_vencimiento: str
+        +procesar_pago(monto: float) bool
+        +verificar_fondos(monto: float) bool
+    }
+    
+    class PayPal {
+        -email: str
+        +procesar_pago(monto: float) bool
+        +verificar_fondos(monto: float) bool
+    }
+    
+    class Transaccion {
+        -metodo_pago: MetodoPago
+        -fecha: datetime
+        +ejecutar_pago(monto: float) bool
+    }
+    
+    MetodoPago <|-- TarjetaCredito
+    MetodoPago <|-- PayPal
+    Transaccion --> MetodoPago
+
 ### 2.3 Pruebas Unitarias
 
 ```python
